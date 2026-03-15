@@ -1,32 +1,43 @@
-# Personal Command Center 🚀
+# desktop-command-center
 
-Widget moderno e minimalista estilo Windows 11 para seu desktop.
+Minimal Windows 11-style desktop widget with live weather, to-do list, and daily habit tracking.
 
-## Funcionalidades
+## Features
 
-- 🌤️ **Clima** - Informações em tempo real da sua cidade
-- ✅ **TODOs** - Gerencie suas tarefas do dia
-- 🎯 **Foco do Dia** - Sugestão aleatória de hábito para focar
-- 💡 **Motivação** - Frases inspiradoras diárias
-- 📅 **Data** - Acompanhe o dia atual
+- Live weather display via wttr.in (no API key required)
+- Persistent to-do list stored locally as JSON
+- Daily motivational quote, randomly selected at startup
+- Daily habit reminder, randomly selected at startup
+- Windows 11 color palette — clean, card-based layout
+- Configurable city and country via `data/config.json`
+- Windows autostart support via startup folder shortcut
+- Draggable window, ESC to close
 
-## Instalação
+## Stack
 
-1. Instale as dependências:
+| Component | Choice |
+|-----------|--------|
+| Language | Python 3 |
+| GUI | tkinter (stdlib) |
+| Weather API | wttr.in (HTTP, no auth) |
+| HTTP client | requests |
+| Persistence | JSON files |
+
+## Setup / Installation
+
 ```bash
-pip install -r requirements.txt
+pip install requests
 ```
 
-2. Execute o aplicativo:
+No additional dependencies beyond the Python standard library and requests.
+
+## Usage
+
 ```bash
 python command_center.py
 ```
 
-Ou simplesmente clique duas vezes em `run.bat`
-
-## Configuração
-
-Edite o arquivo `data/config.json` para personalizar sua cidade:
+On first run, `data/config.json` is created with defaults:
 
 ```json
 {
@@ -35,22 +46,24 @@ Edite o arquivo `data/config.json` para personalizar sua cidade:
 }
 ```
 
-## Autostart no Windows
+Edit this file before launching to change the weather location.
 
-Para o Command Center abrir automaticamente ao ligar o PC:
+To-do items are saved automatically to `data/todos.json` and persist between sessions.
 
-1. Pressione `Win + R`
-2. Digite `shell:startup` e pressione Enter
-3. Copie o atalho `Command Center.lnk` para essa pasta
+**Autostart on Windows:**
 
-## Atalhos
+1. Press `Win + R`, type `shell:startup`, press Enter
+2. Copy the `Command Center.lnk` shortcut into that folder
 
-- **ESC** - Fecha o widget
-- **Arraste** - Mova o widget pela tela
+Alternatively, double-click `run.bat` to launch without a terminal window.
 
-## Personalizações Futuras
+## File Structure
 
-- Adicionar/editar TODOs direto no widget
-- Integração com Google Calendar
-- Temas customizáveis
-- Notificações de lembretes
+```
+command-center/
+├── command_center.py   # Main application
+├── run.bat             # Launch script (no terminal window)
+└── data/
+    ├── config.json     # City configuration (auto-created on first run)
+    └── todos.json      # To-do list (auto-created on first run)
+```
